@@ -72,8 +72,8 @@ Ensure you have your respective system compilers explicitly path-mapped before d
 
 ### 📥 Cloning the Repository
 ```bash
-git clone [https://github.com/shambhushekharsinha-engg/Operating-Systems-Lab.git](https://github.com/shambhushekharsinha-engg/Operating-System-Lab.git)
-cd Operating-System-Lab
+git clone [https://github.com/shambhushekharsinha-engg/Operating-Systems-Lab.git](https://github.com/shambhushekharsinha-engg/Operating-Systems-Lab.git)
+cd Operating-Systems-Lab
 
 ⚡ Compilation Commands
 
