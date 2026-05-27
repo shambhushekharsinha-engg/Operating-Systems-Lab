@@ -37,9 +37,9 @@ This repository hosts robust, highly optimized architectural simulations of core
 ### 🕒 1. CPU Scheduling Metrics
 The scheduling models compute performance efficiency using the following formal process execution boundaries:
 
-$$\text{Turnaround Time (TAT)} = \text{Completion Time (CT)} - \text{Arrival Time (AT)}$$
+{Turnaround Time (TAT)} = {Completion Time (CT)} - {Arrival Time (AT)}
 
-$$\text{Waiting Time (WT)} = \text{Turnaround Time (TAT)} - \text{Burst Time (BT)}$$
+{Waiting Time (WT)} = {Turnaround Time (TAT)} - {Burst Time 
 
 ```text
 Arrival (AT)      Execution Start        Completion (CT)
@@ -55,7 +55,7 @@ v                   v                       v
 ### 🛡️ 2. Deadlock Avoidance (Banker's Algorithm Matrix)
 Engineered around dynamic vector evaluation checks to calculate systemic vulnerability paths prior to hardware space reservation tasks:
 
-$$\text{Need}[i][j] = \text{Max}[i][j] - \text{Allocation}[i][j]$$
+{Need}[i][j] = {Max}[i][j] - {Allocation}[i][j]
 
 ---
 
