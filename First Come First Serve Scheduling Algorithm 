@@ -157,10 +157,10 @@ FCFS executes processes in the order of their arrival. It is non-preemptive.
 
 ### Expected Output
 ```text
-PID  	AT  	BT   	CT   	TAT  	WT
-1	    0  	10   	10    	10   0
-2	    1  	 5	   15    	14  9
-3	    2	   8   	23	    21  13
+PID AT BT CT 	TAT WT
+1	   0 	10 	10 10   0
+2	   1  5 15  	14  9
+3	   2	  8 	23	 21  13
 
 Average Waiting Time = 7.33
 Average Turnaround Time = 15.00
