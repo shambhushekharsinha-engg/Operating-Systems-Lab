@@ -1,0 +1,149 @@
+Processes are allocated the CPU based on highest priority (Lower integer = Higher priority).
+Code Implementations
+=== "C"
+```c
+
+#include <stdio.h>
+struct Process {
+int pid, bt, priority, wt, tat, ct;
+};
+void priorityScheduling(struct Process p[], int n) {
+// Simple selection sort based on priority (assumes simultaneous arrival at 0)
+for (int i = 0; i < n - 1; i++) {
+for (int j = i + 1; j < n; j++) {
+if (p[i].priority > p[j].priority) {
+struct Process temp = p[i];
+p[i] = p[j];
+p[j] = temp;
+}
+}
+}
+int current_time = 0;
+float total_wt = 0, total_tat = 0;
+printf("PID\tPriority\tBT\tCT\tTAT\tWT\n");
+for (int i = 0; i < n; i++) {
+current_time += p[i].bt;
+p[i].ct = current_time;
+p[i].tat = p[i].ct;
+p[i].wt = p[i].tat - p[i].bt;
+total_wt += p[i].wt;
+total_tat += p[i].tat;
+printf("%d\t%d\t\t%d\t%d\t%d\t%d\n", p[i].pid, p[i].priority, p[i].bt, p[i].ct, p[i].tat, p[i].wt);
+}
+printf("\nAverage Waiting Time = %.2f", total_wt / n);
+printf("\nAverage Turnaround Time = %.2f\n", total_tat / n);
+}
+int main() {
+struct Process p[] = {{1, 10, 2}, {2, 5, 0}, {3, 8, 1}};
+int n = sizeof(p) / sizeof(p[0]);
+priorityScheduling(p, n);
+return 0;
+}
+```
+=== "C++"
+```cpp
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+struct Process {
+int pid, bt, priority, ct, tat, wt;
+};
+void priorityScheduling(vector<Process>& vec) {
+sort(vec.begin(), vec.end(), [](const Process& a, const Process& b) {
+return a.priority < b.priority;
+});
+int current_time = 0;
+float total_wt = 0, total_tat = 0;
+cout << "PID\tPriority\tBT\tCT\tTAT\tWT\n";
+for (auto& p : vec) {
+current_time += p.bt;
+p.ct = current_time;
+p.tat = p.ct;
+p.wt = p.tat - p.bt;
+total_wt += p.wt;
+total_tat += p.tat;
+cout << p.pid << "\t" << p.priority << "\t\t" << p.bt << "\t" << p.ct << "\t" << p.tat << "\t" << p.wt << "\n";
+}
+cout << fixed << setprecision(2);
+cout << "\nAverage Waiting Time = " << total_wt / vec.size();
+cout << "\nAverage Turnaround Time = " << total_tat / vec.size() << "\n";
+}
+int main() {
+vector<Process> vec = {{1, 10, 2}, {2, 5, 0}, {3, 8, 1}};
+priorityScheduling(vec);
+return 0;
+}
+```
+=== "Java"
+```java
+
+import java.util.*;
+class Process {
+int pid, bt, priority, ct, tat, wt;
+Process(int pid, int bt, int priority) {
+this.pid = pid; this.bt = bt; this.priority = priority;
+}
+}
+public class PriorityScheduling {
+public static void main(String[] args) {
+List<Process> list = new ArrayList<>();
+list.add(new Process(1, 10, 2));
+list.add(new Process(2, 5, 0));
+list.add(new Process(3, 8, 1));
+list.sort(Comparator.comparingInt(p -> p.priority));
+int current_time = 0;
+float total_wt = 0, total_tat = 0;
+System.out.println("PID\tPriority\tBT\tCT\tTAT\tWT");
+for (Process p : list) {
+current_time += p.bt;
+p.ct = current_time;
+p.tat = p.ct;
+p.wt = p.tat - p.bt;
+total_wt += p.wt;
+total_tat += p.tat;
+System.out.println(p.pid + "\t" + p.priority + "\t\t" + p.bt + "\t" + p.ct + "\t" + p.tat + "\t" + p.wt);
+}
+System.out.printf("\nAverage Waiting Time = %.2f", (total_wt / list.size()));
+System.out.printf("\nAverage Turnaround Time = %.2f\n", (total_tat / list.size()));
+}
+}
+```
+=== "Python"
+```python
+
+def priority_scheduling(processes):
+# Sort processing based on priority field
+processes.sort(key=lambda x: x['priority'])
+current_time = 0
+total_wt, total_tat = 0, 0
+print("PID\tPriority\tBT\tCT\tTAT\tWT")
+for p in processes:
+current_time += p['bt']
+p['ct'] = current_time
+p['tat'] = p['ct']
+p['wt'] = p['tat'] - p['bt']
+total_wt += p['wt']
+total_tat += p['tat']
+print(f"{p['pid']}\t{p['priority']}\t\t{p['bt']}\t{p['ct']}\t{p['tat']}\t{p['wt']}")
+print(f"\nAverage Waiting Time = {total_wt / len(processes):.2f}")
+print(f"Average Turnaround Time = {total_tat / len(processes):.2f}")
+if name == "main":
+procs = [
+{'pid': 1, 'bt': 10, 'priority': 2},
+{'pid': 2, 'bt': 5, 'priority': 0},
+{'pid': 3, 'bt': 8, 'priority': 1}
+]
+priority_scheduling(procs)
+```
+Expected Output
+
+PID	     Priority  	BT	  CT  	TAT	   WT
+ 2	        0	       	5	   5	    5	    0
+ 3	        1		       8	  13  	 13    	5
+ 1	        2		      10	  23	   23   	13
+
+Average Waiting Time = 6.00
+Average Turnaround Time = 13.67
